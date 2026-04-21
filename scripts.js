@@ -322,7 +322,7 @@ function editCardContent(card, show) {
 
   const cardBullets = card.querySelectorAll("li");
   cardBullets[0].textContent = "Genre: " + show.genre;
-  cardBullets[1].textContent = "Rating: " + show.rating;
+  cardBullets[1].textContent = "Rating: " + formatRating(show.rating);
   cardBullets[2].textContent = "Setting: " + show.setting;
 }
 
@@ -375,6 +375,10 @@ function filterByGenre() {
   applyFilters();
 }
 
+function formatRating(rating) {
+  return rating.toFixed(1);
+}
+
 // Sort button label
 function updateSortButton() {
   const sortButton = document.getElementById("sort-button");
@@ -400,7 +404,7 @@ function openModal(show) {
   modalImage.src = show.image;
   modalImage.alt = show.title + " Poster";
   modalGenre.textContent = "Genre: " + show.genre;
-  modalRating.textContent = "Rating: " + show.rating;
+  modalRating.textContent = "Rating: " + formatRating(show.rating);
   modalSetting.textContent = "Setting: " + show.setting;
   modalAbout.textContent = show.about;
 
