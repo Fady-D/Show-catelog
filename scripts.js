@@ -323,26 +323,27 @@ let favoriteIds = [];
 const CARD_ENTER_DELAY_MS = 28;
 
 // Card rendering
-function showCards() {
+function showCards(animate) {
   const cardContainer = document.getElementById("card-container");
   const prefersReducedMotion = shouldReduceMotion();
-  beginGridUpdate(cardContainer, prefersReducedMotion);
+  const shouldAnimate = shouldUseMotion(animate, prefersReducedMotion);
+  beginGridUpdate(cardContainer, shouldAnimate);
 
   for (let i = 0; i < shows.length; i++) {
     const show = shows[i];
-    const nextCard = createShowCard(show, i, prefersReducedMotion);
+    const nextCard = createShowCard(show, i, shouldAnimate);
     cardContainer.appendChild(nextCard);
   }
 
-  finishGridUpdate(cardContainer, prefersReducedMotion);
+  finishGridUpdate(cardContainer, shouldAnimate);
 }
 
-function createShowCard(show, index, prefersReducedMotion) {
+function createShowCard(show, index, animate) {
   const templateCard = document.querySelector(".card");
   const nextCard = templateCard.cloneNode(true);
   editCardContent(nextCard, show);
 
-  if (!prefersReducedMotion) {
+  if (animate) {
     nextCard.classList.add("card-enter");
     nextCard.style.setProperty(
       "--card-enter-delay",
@@ -353,19 +354,19 @@ function createShowCard(show, index, prefersReducedMotion) {
   return nextCard;
 }
 
-function beginGridUpdate(container, prefersReducedMotion) {
-  container.classList.add("is-updating");
-  container.setAttribute("aria-busy", "true");
-  container.innerHTML = "";
-
-  if (prefersReducedMotion) {
-    container.classList.remove("is-updating");
-    container.removeAttribute("aria-busy");
+function beginGridUpdate(container, animate) {
+  if (animate) {
+    container.classList.add("is-updating");
+    container.setAttribute("aria-busy", "true");
   }
+
+  container.innerHTML = "";
 }
 
-function finishGridUpdate(container, prefersReducedMotion) {
-  if (prefersReducedMotion) {
+function finishGridUpdate(container, animate) {
+  if (!animate) {
+    container.classList.remove("is-updating");
+    container.removeAttribute("aria-busy");
     return;
   }
 
@@ -373,6 +374,14 @@ function finishGridUpdate(container, prefersReducedMotion) {
     container.classList.remove("is-updating");
     container.removeAttribute("aria-busy");
   });
+}
+
+function shouldUseMotion(animate, prefersReducedMotion) {
+  if (animate === false || prefersReducedMotion) {
+    return false;
+  }
+
+  return true;
 }
 
 function shouldReduceMotion() {
@@ -525,8 +534,8 @@ function toggleFavorite(showId) {
     favoriteIds.push(showId);
   }
 
-  showCards();
-  renderFavorites();
+  showCards(false);
+  renderFavorites(false);
 }
 
 function isFavorite(showId) {
@@ -567,18 +576,19 @@ function closeFavoritesModal(event) {
 }
 
 // Favorites card rendering
-function renderFavorites() {
+function renderFavorites(animate) {
   const favoritesContainer = document.getElementById("favorites-container");
   const emptyState = document.getElementById("favorites-empty");
   const favoriteShows = allShows.filter(function (show) {
     return favoriteIds.includes(show.id);
   });
   const prefersReducedMotion = shouldReduceMotion();
-  beginGridUpdate(favoritesContainer, prefersReducedMotion);
+  const shouldAnimate = shouldUseMotion(animate, prefersReducedMotion);
+  beginGridUpdate(favoritesContainer, shouldAnimate);
 
   if (favoriteShows.length === 0) {
     emptyState.classList.remove("hidden");
-    finishGridUpdate(favoritesContainer, prefersReducedMotion);
+    finishGridUpdate(favoritesContainer, shouldAnimate);
     return;
   }
 
@@ -586,9 +596,9 @@ function renderFavorites() {
 
   for (let i = 0; i < favoriteShows.length; i++) {
     const show = favoriteShows[i];
-    const favoriteCard = createShowCard(show, i, prefersReducedMotion);
+    const favoriteCard = createShowCard(show, i, shouldAnimate);
     favoritesContainer.appendChild(favoriteCard);
   }
 
-  finishGridUpdate(favoritesContainer, prefersReducedMotion);
+  finishGridUpdate(favoritesContainer, shouldAnimate);
 }
