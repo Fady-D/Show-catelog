@@ -1,5 +1,7 @@
+/* Styles for the TV show catalog layout, cards, modals, and theme toggle. */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 
+/* Light theme color variables used across the page. */
 :root {
   --page-bg:
     radial-gradient(circle at top, rgba(130, 173, 255, 0.22), transparent 30%),
@@ -34,6 +36,7 @@
   --toggle-ring: rgba(37, 99, 235, 0.2);
 }
 
+/* Dark theme color variables applied when the body has the dark class. */
 body.dark {
   --page-bg:
     radial-gradient(circle at top, rgba(56, 189, 248, 0.16), transparent 28%),
@@ -109,6 +112,7 @@ body.modal-open {
   overflow: hidden;
 }
 
+/* Top-left theme toggle button that switches between light and dark mode. */
 .theme-toggle {
   position: fixed;
   top: 18px;
@@ -334,6 +338,7 @@ body.dark .theme-toggle-icon::before {
   color: var(--heading-text);
 }
 
+/* Heart button used to add and remove favorite shows from the list. */
 .favorite-button {
   position: absolute;
   top: 18px;
@@ -528,6 +533,7 @@ body.dark .theme-toggle-icon::before {
   display: none;
 }
 
+/* Shared base styling for action buttons, inputs, and select controls. */
 button,
 .control-bar select,
 .control-bar input,
@@ -544,6 +550,7 @@ button,
     background-color 0.2s ease;
 }
 
+/* Primary button styling for actions like sort, favorites, and close. */
 button {
   padding: 0 18px;
   background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
@@ -576,6 +583,7 @@ button:focus-visible,
   min-width: 280px;
 }
 
+/* Hover and focus states for the search field and genre dropdown. */
 .control-bar select:hover,
 .control-bar input:hover,
 .control-bar select:focus,
@@ -585,7 +593,7 @@ button:focus-visible,
   outline: none;
 }
 
-/* Responsive adjustments */
+/* Tablet layout adjustments for spacing, cards, and controls. */
 @media (max-width: 768px) {
   .main-header {
     margin: 16px 16px 0;
@@ -642,6 +650,7 @@ button:focus-visible,
   }
 }
 
+/* Mobile layout adjustments for compact spacing and smaller UI elements. */
 @media (max-width: 480px) {
   .header-badge {
     margin-bottom: 14px;

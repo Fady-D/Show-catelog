@@ -36,7 +36,7 @@ const STRANGER_THINGS_URL =
 const THE_OFFICE_URL =
   "assets/TheOfiice.jpg";
 const GAME_OF_THRONES_URL =
-  "https://upload.wikimedia.org/wikipedia/en/thumb/d/d8/Game_of_Thrones_title_card.jpg/250px-Game_of_Thrones_title_card.jpg";
+  "assets/Game-Of-Thrones.jpg";
 const THE_MANDALORIAN_URL =
   "assets/The-Mandalorian.jpg";
 const FRIENDS_URL =
@@ -74,7 +74,7 @@ let shows = [
     rating: 8.7,
     setting: "Bel-Air",
     about:
-      "A street-smart teenager from West Philadelphia moves in with his wealthy relatives in Bel-Air, where his laid-back personality constantly clashes with high-society expectations."
+      "A street-smart teenager from West Philadelphia moves in with his wealthy relatives in Bel-Air, where his laid-back personality constantly clashes with high-society expectations. His humor and charm keep turning tense moments into unforgettable ones."
   },
   {
     id: "curb-your-enthusiasm",
@@ -84,7 +84,7 @@ let shows = [
     rating: 8.9,
     setting: "Los Angeles",
     about:
-      "Larry David plays an exaggerated version of himself, stumbling through awkward social situations and turning tiny everyday problems into hilarious disasters."
+      "Larry David plays an exaggerated version of himself, stumbling through awkward social situations and turning tiny everyday problems into hilarious disasters. The show finds comedy in the smallest social misunderstandings."
   },
   {
     id: "east-los-high",
@@ -94,7 +94,7 @@ let shows = [
     rating: 7.5,
     setting: "East Los Angeles",
     about:
-      "This teen drama follows students in East Los Angeles as they deal with identity, family pressure, friendships, romance, and the realities of growing up."
+      "This teen drama follows students in East Los Angeles as they deal with identity, family pressure, friendships, romance, and the realities of growing up. It gives the characters' personal struggles a strong emotional focus."
   },
   {
     id: "breaking-bad",
@@ -104,7 +104,7 @@ let shows = [
     rating: 9.5,
     setting: "Albuquerque",
     about:
-      "A struggling chemistry teacher turns to making meth after a cancer diagnosis, and his attempt to secure his family’s future spirals into a dangerous criminal life."
+      "A struggling chemistry teacher turns to making meth after a cancer diagnosis, and his attempt to secure his family’s future spirals into a dangerous criminal life. What begins as desperation slowly turns into a ruthless hunger for control."
   },
   {
     id: "stranger-things",
@@ -114,7 +114,7 @@ let shows = [
     rating: 8.8,
     setting: "Hawkins",
     about:
-      "In a small Indiana town, a missing boy, secret experiments, and supernatural forces pull a group of kids into a mystery far bigger than they imagined."
+      "In a small Indiana town, a missing boy, secret experiments, and supernatural forces pull a group of kids into a mystery far bigger than they imagined. Their friendship becomes the heart of the story as danger grows around them."
   },
   {
     id: "the-office",
@@ -124,7 +124,7 @@ let shows = [
     rating: 9.0,
     setting: "Scranton",
     about:
-      "Shot like a workplace documentary, the series follows the employees of Dunder Mifflin as they navigate absurd office politics, friendships, and romance."
+      "Shot like a workplace documentary, the series follows the employees of Dunder Mifflin as they navigate absurd office politics, friendships, and romance. Even the most ordinary office moments become memorable through its awkward humor."
   },
   {
     id: "game-of-thrones",
@@ -134,7 +134,7 @@ let shows = [
     rating: 9.2,
     setting: "Westeros",
     about:
-      "Noble families battle for power across a brutal fantasy world where political ambition, ancient threats, and shifting alliances shape the fate of kingdoms."
+      "Noble families battle for power across a brutal fantasy world where political ambition, ancient threats, and shifting alliances shape the fate of kingdoms. As rival houses rise and fall, every decision carries deadly consequences."
   },
   {
     id: "the-mandalorian",
@@ -144,7 +144,7 @@ let shows = [
     rating: 8.6,
     setting: "Outer Rim",
     about:
-      "A lone bounty hunter travels through the outer reaches of the galaxy, taking dangerous jobs while protecting a mysterious child with extraordinary powers."
+      "A lone bounty hunter travels through the outer reaches of the galaxy, taking dangerous jobs while protecting a mysterious child with extraordinary powers. Over time, his mission becomes more personal than professional."
   },
   {
     id: "friends",
@@ -154,7 +154,7 @@ let shows = [
     rating: 8.9,
     setting: "New York City",
     about:
-      "Six close friends in New York support each other through love, work, and adulthood, turning ordinary life moments into iconic comedy."
+      "Six close friends in New York support each other through love, work, and adulthood, turning ordinary life moments into iconic comedy. Their chemistry is what makes the show feel so warm and rewatchable."
   },
   {
     id: "black-mirror",
@@ -164,7 +164,7 @@ let shows = [
     rating: 8.7,
     setting: "Near Future",
     about:
-      "Each standalone episode explores how technology can distort human relationships, privacy, morality, and power in unsettling near-future scenarios."
+      "Each standalone episode explores how technology can distort human relationships, privacy, morality, and power in unsettling near-future scenarios. Many stories leave viewers questioning how close that future really is."
   },
   {
     id: "better-call-saul",
@@ -174,7 +174,7 @@ let shows = [
     rating: 9.0,
     setting: "Albuquerque",
     about:
-      "Before becoming Saul Goodman, Jimmy McGill struggles to build a legal career, making choices that slowly transform him into the morally slippery lawyer fans know."
+      "Before becoming Saul Goodman, Jimmy McGill struggles to build a legal career, making choices that slowly transform him into the morally slippery lawyer fans know. The series pays close attention to how small compromises shape his downfall."
   },
   {
     id: "merlin",
@@ -184,7 +184,7 @@ let shows = [
     rating: 7.9,
     setting: "Camelot",
     about:
-      "A young Merlin arrives in Camelot and secretly uses his magic to protect Prince Arthur, forging the early bond behind a legendary story."
+      "A young Merlin arrives in Camelot and secretly uses his magic to protect Prince Arthur, forging the early bond behind a legendary story. Its mix of adventure and friendship gives the legend a more personal feel."
   },
   {
     id: "parks-and-recreation",
@@ -194,7 +194,7 @@ let shows = [
     rating: 8.6,
     setting: "Pawnee",
     about:
-      "An endlessly optimistic public official tries to improve her Indiana town while managing eccentric coworkers, strange local politics, and a long list of community headaches."
+      "An endlessly optimistic public official tries to improve her Indiana town while managing eccentric coworkers, strange local politics, and a long list of community headaches. The show balances goofy humor with a surprisingly hopeful spirit."
   },
   {
     id: "brooklyn-nine-nine",
@@ -204,7 +204,7 @@ let shows = [
     rating: 8.4,
     setting: "New York City",
     about:
-      "A talented but immature detective works with a lovable squad of officers, balancing absurd workplace comedy with police cases and strong team friendships."
+      "A talented but immature detective works with a lovable squad of officers, balancing absurd workplace comedy with police cases and strong team friendships. Its fast jokes are matched by a cast that feels genuinely close."
   },
   {
     id: "the-crown",
@@ -214,7 +214,7 @@ let shows = [
     rating: 8.6,
     setting: "London",
     about:
-      "This historical drama follows Queen Elizabeth II through the pressures of monarchy, politics, family, and the constant tension between duty and personal life."
+      "This historical drama follows Queen Elizabeth II through the pressures of monarchy, politics, family, and the constant tension between duty and personal life. It highlights how public responsibility can reshape private relationships."
   },
   {
     id: "succession",
@@ -224,7 +224,7 @@ let shows = [
     rating: 8.8,
     setting: "New York City",
     about:
-      "A powerful media family fights for control of a global empire, turning every business move and family gathering into a ruthless battle for influence."
+      "A powerful media family fights for control of a global empire, turning every business move and family gathering into a ruthless battle for influence. The sharp dialogue makes every conversation feel like a negotiation."
   },
   {
     id: "westworld",
@@ -234,7 +234,7 @@ let shows = [
     rating: 8.4,
     setting: "Westworld",
     about:
-      "In a futuristic amusement park filled with lifelike android hosts, questions of consciousness, control, and morality begin to unravel the system."
+      "In a futuristic amusement park filled with lifelike android hosts, questions of consciousness, control, and morality begin to unravel the system. As the park breaks down, the line between creator and creation starts to blur."
   },
   {
     id: "doctor-who",
@@ -244,7 +244,7 @@ let shows = [
     rating: 8.5,
     setting: "Time and Space",
     about:
-      "A brilliant time-traveling alien explores the universe with human companions, facing strange civilizations, impossible dangers, and moral choices across history."
+      "A brilliant time-traveling alien explores the universe with human companions, facing strange civilizations, impossible dangers, and moral choices across history. Its sense of wonder keeps the adventures feeling imaginative and fresh."
   },
   {
     id: "the-witcher",
@@ -254,7 +254,7 @@ let shows = [
     rating: 8.0,
     setting: "The Continent",
     about:
-      "A monster hunter with supernatural abilities becomes entangled in war, prophecy, and destiny as the fates of kingdoms and powerful individuals collide."
+      "A monster hunter with supernatural abilities becomes entangled in war, prophecy, and destiny as the fates of kingdoms and powerful individuals collide. Beneath the action, the story keeps returning to questions of destiny and choice."
   },
   {
     id: "shadow-and-bone",
@@ -264,7 +264,7 @@ let shows = [
     rating: 7.5,
     setting: "Ravka",
     about:
-      "A young soldier discovers a rare magical power that could change her war-torn world, drawing her into political schemes, danger, and hidden secrets."
+      "A young soldier discovers a rare magical power that could change her war-torn world, drawing her into political schemes, danger, and hidden secrets. The fantasy world feels larger as its rival forces and loyalties unfold."
   }
 ];
 
