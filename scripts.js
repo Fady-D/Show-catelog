@@ -320,20 +320,63 @@ let shows = [
 let allShows = [...shows];
 let sortDescending = true;
 let favoriteIds = [];
+const CARD_ENTER_DELAY_MS = 28;
 
 // Card rendering
 function showCards() {
   const cardContainer = document.getElementById("card-container");
-  cardContainer.innerHTML = "";
-  const templateCard = document.querySelector(".card");
+  const prefersReducedMotion = shouldReduceMotion();
+  beginGridUpdate(cardContainer, prefersReducedMotion);
 
   for (let i = 0; i < shows.length; i++) {
     const show = shows[i];
-
-    const nextCard = templateCard.cloneNode(true);
-    editCardContent(nextCard, show);
+    const nextCard = createShowCard(show, i, prefersReducedMotion);
     cardContainer.appendChild(nextCard);
   }
+
+  finishGridUpdate(cardContainer, prefersReducedMotion);
+}
+
+function createShowCard(show, index, prefersReducedMotion) {
+  const templateCard = document.querySelector(".card");
+  const nextCard = templateCard.cloneNode(true);
+  editCardContent(nextCard, show);
+
+  if (!prefersReducedMotion) {
+    nextCard.classList.add("card-enter");
+    nextCard.style.setProperty(
+      "--card-enter-delay",
+      Math.min(index, 8) * CARD_ENTER_DELAY_MS + "ms"
+    );
+  }
+
+  return nextCard;
+}
+
+function beginGridUpdate(container, prefersReducedMotion) {
+  container.classList.add("is-updating");
+  container.setAttribute("aria-busy", "true");
+  container.innerHTML = "";
+
+  if (prefersReducedMotion) {
+    container.classList.remove("is-updating");
+    container.removeAttribute("aria-busy");
+  }
+}
+
+function finishGridUpdate(container, prefersReducedMotion) {
+  if (prefersReducedMotion) {
+    return;
+  }
+
+  requestAnimationFrame(function () {
+    container.classList.remove("is-updating");
+    container.removeAttribute("aria-busy");
+  });
+}
+
+function shouldReduceMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
 function editCardContent(card, show) {
@@ -530,11 +573,12 @@ function renderFavorites() {
   const favoriteShows = allShows.filter(function (show) {
     return favoriteIds.includes(show.id);
   });
-
-  favoritesContainer.innerHTML = "";
+  const prefersReducedMotion = shouldReduceMotion();
+  beginGridUpdate(favoritesContainer, prefersReducedMotion);
 
   if (favoriteShows.length === 0) {
     emptyState.classList.remove("hidden");
+    finishGridUpdate(favoritesContainer, prefersReducedMotion);
     return;
   }
 
@@ -542,8 +586,9 @@ function renderFavorites() {
 
   for (let i = 0; i < favoriteShows.length; i++) {
     const show = favoriteShows[i];
-    const favoriteCard = document.querySelector(".card").cloneNode(true);
-    editCardContent(favoriteCard, show);
+    const favoriteCard = createShowCard(show, i, prefersReducedMotion);
     favoritesContainer.appendChild(favoriteCard);
   }
+
+  finishGridUpdate(favoritesContainer, prefersReducedMotion);
 }
