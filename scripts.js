@@ -63,7 +63,6 @@ const THE_WITCHER_URL =
   "assets/The-Witcher.jpg";
 const SHADOW_AND_BONE_URL =
   "assets/Shadow-And-Bone.jpg";
-const FALLBACK_IMAGE_URL = "assets/show-placeholder.svg";
 
 // Main TV show data
 let shows = [
@@ -320,9 +319,6 @@ function editCardContent(card, show) {
   const cardImage = card.querySelector("img");
   cardImage.src = show.image;
   cardImage.alt = show.title + " Poster";
-  cardImage.onerror = function () {
-    cardImage.src = FALLBACK_IMAGE_URL;
-  };
 
   const cardBullets = card.querySelectorAll("li");
   cardBullets[0].textContent = "Genre: " + show.genre;
@@ -398,9 +394,6 @@ function openModal(show) {
   modalTitle.textContent = show.title;
   modalImage.src = show.image;
   modalImage.alt = show.title + " Poster";
-  modalImage.onerror = function () {
-    modalImage.src = FALLBACK_IMAGE_URL;
-  };
   modalGenre.textContent = "Genre: " + show.genre;
   modalRating.textContent = "Rating: " + show.rating;
   modalSetting.textContent = "Setting: " + show.setting;
