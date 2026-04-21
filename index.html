@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+  <head>
+    <title> TV Shows | Home</title>
+    <meta name="description" content="A Catalog of Shows Set in Los Angeles" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <header class="main-header">
+      <div class="header-badge">TV Picks</div>
+      <h1 class="title">Fady’s TV Show Catalog</h1>
+      <p class="header-subtitle">
+        Explore standout series, sort them by rating, and click any show to
+        learn more.
+      </p>
+    </header>
+
+    <section class="control-bar" aria-label="Catalog controls">
+      <div class="control-group control-group-primary">
+        <label for="search-input">Search</label>
+        <input
+          id="search-input"
+          type="text"
+          placeholder="Search shows"
+          oninput="applyFilters()"
+        />
+      </div>
+      <div class="control-group">
+        <label for="genre-select">Genre</label>
+        <select id="genre-select" onchange="applyFilters()">
+          <option value="All">All</option>
+          <option value="Comedy">Comedy</option>
+          <option value="Drama">Drama</option>
+          <option value="Sci-Fi">Sci-Fi</option>
+          <option value="Fantasy">Fantasy</option>
+        </select>
+      </div>
+      <div class="control-group control-group-button">
+        <label for="sort-button">Sort</label>
+        <button id="sort-button" onclick="sortByRating()">Sort By Rating ↓</button>
+      </div>
+      <div class="control-group control-group-button">
+        <label for="favorites-button">Favorites</label>
+        <button id="favorites-button" onclick="openFavoritesModal()">
+          View Favorites
+        </button>
+      </div>
+    </section>
+
+    <div id="card-container"></div>
+
+    <div class="card" style="display: none">
+      <div class="card-content">
+        <button class="favorite-button" type="button" aria-label="Toggle favorite">
+          ♡
+        </button>
+        <h2>TV Show Title</h2>
+        <img src="" alt="TV Show Poster" />
+        <ul>
+          <li>Genre</li>
+          <li>Rating</li>
+          <li>Setting</li>
+        </ul>
+      </div>
+    </div>
+
+    <div
+      id="favorites-modal"
+      class="modal-overlay hidden"
+      onclick="closeFavoritesModal(event)"
+    >
+      <div class="modal-card favorites-modal-card">
+        <button class="modal-close" onclick="closeFavoritesModal(event)">Close</button>
+        <div class="favorites-header">
+          <h2>Your Favorites</h2>
+          <p>Quick access to the shows you want to come back to.</p>
+        </div>
+        <div id="favorites-empty" class="favorites-empty hidden">
+          No favorites yet. Tap the heart on any card to save it here.
+        </div>
+        <div id="favorites-container" class="favorites-grid"></div>
+      </div>
+    </div>
+
+    <div id="show-modal" class="modal-overlay hidden" onclick="closeModal(event)">
+      <div class="modal-card">
+        <button class="modal-close" onclick="closeModal(event)">Close</button>
+        <img id="modal-image" src="" alt="Selected TV Show Poster" />
+        <div class="modal-body">
+          <h2 id="modal-title">TV Show Title</h2>
+          <ul id="modal-details">
+            <li id="modal-genre">Genre</li>
+            <li id="modal-rating">Rating</li>
+            <li id="modal-setting">Setting</li>
+          </ul>
+          <h3>About</h3>
+          <p id="modal-about"></p>
+        </div>
+      </div>
+    </div>
+
+    <script src="scripts.js"></script>
+  </body>
+</html>
