@@ -63,6 +63,14 @@ const THE_WITCHER_URL =
   "assets/The-Witcher.jpg";
 const SHADOW_AND_BONE_URL =
   "assets/Shadow-And-Bone.jpg";
+const THE_SOPRANOS_URL =
+  "assets/The Sopranos.jpeg";
+const SEVERANCE_URL =
+  "assets/Severance.jpeg";
+const THE_BEAR_URL =
+  "assets/The Bear.jpeg";
+const HOUSE_OF_THE_DRAGON_URL =
+  "assets/House-Of-The-Dragon.jpeg";
 
 // Main TV show data
 let shows = [
@@ -265,6 +273,46 @@ let shows = [
     setting: "Ravka",
     about:
       "A young soldier discovers a rare magical power that could change her war-torn world, drawing her into political schemes, danger, and hidden secrets. The fantasy world feels larger as its rival forces and loyalties unfold."
+  },
+  {
+    id: "the-sopranos",
+    title: "The Sopranos",
+    image: THE_SOPRANOS_URL,
+    genre: "Drama",
+    rating: 9.2,
+    setting: "New Jersey",
+    about:
+      "A powerful mob boss tries to balance the demands of organized crime with the pressures of family life and therapy. Its tense character drama helped redefine modern television."
+  },
+  {
+    id: "severance",
+    title: "Severance",
+    image: SEVERANCE_URL,
+    genre: "Sci-Fi",
+    rating: 8.7,
+    setting: "Lumon Industries",
+    about:
+      "Office workers undergo a procedure that separates their work memories from their personal lives, creating two distinct identities. The mystery deepens as both worlds begin to collide."
+  },
+  {
+    id: "the-bear",
+    title: "The Bear",
+    image: THE_BEAR_URL,
+    genre: "Drama",
+    rating: 8.6,
+    setting: "Chicago",
+    about:
+      "A talented young chef returns home to run his family’s struggling sandwich shop after a sudden loss. The series mixes kitchen chaos with sharp emotional realism."
+  },
+  {
+    id: "house-of-the-dragon",
+    title: "House of the Dragon",
+    image: HOUSE_OF_THE_DRAGON_URL,
+    genre: "Fantasy",
+    rating: 8.4,
+    setting: "Westeros",
+    about:
+      "Set generations before Game of Thrones, this prequel follows the Targaryen family as internal conflict pushes the realm toward civil war. The power struggle grows more dangerous with every shifting alliance."
   }
 ];
 
