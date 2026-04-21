@@ -27,12 +27,14 @@
   --input-border: #cbd5e1;
   --modal-bg: #ffffff;
   --overlay-bg: rgba(15, 23, 42, 0.72);
-  --theme-button-bg: rgba(15, 23, 42, 0.88);
-  --theme-button-text: #f8fafc;
-  --theme-button-border: rgba(255, 255, 255, 0.18);
+  --toggle-button-bg: rgba(255, 255, 255, 0.88);
+  --toggle-button-border: rgba(148, 163, 184, 0.26);
+  --toggle-button-shadow: 0 14px 24px rgba(15, 23, 42, 0.14);
+  --toggle-button-icon: #f59e0b;
+  --toggle-ring: rgba(37, 99, 235, 0.2);
 }
 
-body.dark-theme {
+body.dark {
   --page-bg:
     radial-gradient(circle at top, rgba(56, 189, 248, 0.16), transparent 28%),
     linear-gradient(180deg, #020617 0%, #0f172a 100%);
@@ -59,9 +61,11 @@ body.dark-theme {
   --input-border: #334155;
   --modal-bg: #0f172a;
   --overlay-bg: rgba(2, 6, 23, 0.82);
-  --theme-button-bg: rgba(248, 250, 252, 0.96);
-  --theme-button-text: #0f172a;
-  --theme-button-border: rgba(15, 23, 42, 0.12);
+  --toggle-button-bg: rgba(15, 23, 42, 0.92);
+  --toggle-button-border: rgba(148, 163, 184, 0.22);
+  --toggle-button-shadow: 0 16px 28px rgba(2, 6, 23, 0.34);
+  --toggle-button-icon: #dbeafe;
+  --toggle-ring: rgba(96, 165, 250, 0.28);
 }
 
 /* Base page styles */
@@ -110,16 +114,61 @@ body.modal-open {
   top: 18px;
   left: 18px;
   z-index: 1200;
-  min-width: 78px;
-  height: 38px;
-  padding: 0 14px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--toggle-button-border);
   border-radius: 999px;
-  border: 1px solid var(--theme-button-border);
-  background: var(--theme-button-bg);
-  color: var(--theme-button-text);
-  box-shadow: 0 12px 22px rgba(15, 23, 42, 0.18);
-  font-size: 0.88rem;
-  font-weight: 700;
+  background: var(--toggle-button-bg);
+  box-shadow: var(--toggle-button-shadow);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background-color 0.24s ease,
+    border-color 0.32s ease,
+    box-shadow 0.24s ease,
+    transform 0.16s ease;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-1px);
+}
+
+.theme-toggle:active {
+  transform: scale(0.96);
+}
+
+.theme-toggle:focus-visible {
+  outline: none;
+  box-shadow:
+    var(--toggle-button-shadow),
+    0 0 0 4px var(--toggle-ring);
+}
+
+.theme-toggle-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: var(--toggle-button-icon);
+  font-size: 1.2rem;
+  line-height: 1;
+  transition:
+    color 0.24s ease,
+    transform 0.2s ease;
+}
+
+.theme-toggle:hover .theme-toggle-icon {
+  transform: scale(1.08);
+}
+
+.theme-toggle-icon::before {
+  content: "\2600";
+}
+
+body.dark .theme-toggle-icon::before {
+  content: "\263E";
 }
 
 /* Header */
@@ -547,6 +596,8 @@ button:focus-visible,
   .theme-toggle {
     top: 14px;
     left: 14px;
+    width: 42px;
+    height: 42px;
   }
 
   .control-bar {
@@ -622,7 +673,7 @@ button:focus-visible,
   }
 
   .theme-toggle {
-    min-width: 72px;
-    padding: 0 12px;
+    width: 40px;
+    height: 40px;
   }
 }

@@ -272,7 +272,6 @@ let shows = [
 let allShows = [...shows];
 let sortDescending = true;
 let favoriteIds = [];
-let isDarkTheme = false;
 
 // Card rendering
 function showCards() {
@@ -329,38 +328,14 @@ function editCardContent(card, show) {
 
 // Page setup
 document.addEventListener("DOMContentLoaded", function () {
-  initializeTheme();
   showCards();
   updateSortButton();
   renderFavorites();
 });
 
 // Theme toggle
-function initializeTheme() {
-  const savedTheme = localStorage.getItem("theme-preference");
-
-  if (savedTheme === "dark") {
-    isDarkTheme = true;
-  }
-
-  applyTheme();
-}
-
 function toggleTheme() {
-  isDarkTheme = !isDarkTheme;
-  localStorage.setItem("theme-preference", isDarkTheme ? "dark" : "light");
-  applyTheme();
-}
-
-function applyTheme() {
-  const themeToggle = document.getElementById("theme-toggle");
-
-  document.body.classList.toggle("dark-theme", isDarkTheme);
-  themeToggle.textContent = isDarkTheme ? "Light" : "Dark";
-  themeToggle.setAttribute(
-    "aria-label",
-    isDarkTheme ? "Switch to light mode" : "Switch to dark mode"
-  );
+  document.body.classList.toggle("dark");
 }
 
 // Sorting logic
