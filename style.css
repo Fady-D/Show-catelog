@@ -87,6 +87,7 @@ body {
 }
 
 body {
+  display: flow-root;
   line-height: 1.5;
 }
 
