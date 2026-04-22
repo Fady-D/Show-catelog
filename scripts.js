@@ -316,19 +316,26 @@ let shows = [
   }
 ];
 
-// App state values
+// App state values that control what the user currently sees.
+// `allShows` keeps the full original dataset untouched,
+// `shows` is the working list that gets sorted and filtered for display,
+// `sortDescending` tracks the current rating direction,
+// and `favoriteIds` stores the IDs of saved favorite shows.
 let allShows = [...shows];
 let sortDescending = true;
 let favoriteIds = [];
 const CARD_ENTER_DELAY_MS = 28;
 
-// Card rendering
+// Rebuilds the main catalog grid using the current `shows` array.
+// Any time sorting, searching, or filtering changes the visible results,
+// this function clears the old cards, creates new ones, and redraws the list.
 function showCards(animate) {
   const cardContainer = document.getElementById("card-container");
   const prefersReducedMotion = shouldReduceMotion();
   const shouldAnimate = shouldUseMotion(animate, prefersReducedMotion);
   beginGridUpdate(cardContainer, shouldAnimate);
 
+  // Loop through the currently visible shows and turn each one into a card.
   for (let i = 0; i < shows.length; i++) {
     const show = shows[i];
     const nextCard = createShowCard(show, i, shouldAnimate);
@@ -338,11 +345,14 @@ function showCards(animate) {
   finishGridUpdate(cardContainer, shouldAnimate);
 }
 
+// Builds one show card by cloning the hidden template from the HTML,
+// filling in its content, and optionally giving it an entrance animation.
 function createShowCard(show, index, animate) {
   const templateCard = document.querySelector(".card");
   const nextCard = templateCard.cloneNode(true);
   editCardContent(nextCard, show);
 
+  // Add a small stagger so multiple cards do not all animate at once.
   if (animate) {
     nextCard.classList.add("card-enter");
     nextCard.style.setProperty(
@@ -354,6 +364,9 @@ function createShowCard(show, index, animate) {
   return nextCard;
 }
 
+// Prepares a grid before new cards are inserted.
+// When animation is enabled, this adds a temporary updating state so CSS can
+// soften the visual change instead of making the results swap instantly.
 function beginGridUpdate(container, animate) {
   if (animate) {
     container.classList.add("is-updating");
@@ -363,6 +376,9 @@ function beginGridUpdate(container, animate) {
   container.innerHTML = "";
 }
 
+// Cleans up the temporary updating state after new cards are in the DOM.
+// Waiting for the next animation frame gives the browser a chance to paint
+// the new elements before the updating class is removed.
 function finishGridUpdate(container, animate) {
   if (!animate) {
     container.classList.remove("is-updating");
@@ -370,12 +386,15 @@ function finishGridUpdate(container, animate) {
     return;
   }
 
+  // Remove the updating state right after the next paint cycle.
   requestAnimationFrame(function () {
     container.classList.remove("is-updating");
     container.removeAttribute("aria-busy");
   });
 }
-
+// Decides whether a specific UI update should animate.
+// Motion is disabled either when the caller explicitly passes `false`
+// or when the user prefers reduced motion for accessibility.
 function shouldUseMotion(animate, prefersReducedMotion) {
   if (animate === false || prefersReducedMotion) {
     return false;
@@ -384,10 +403,13 @@ function shouldUseMotion(animate, prefersReducedMotion) {
   return true;
 }
 
+// Reads the user's reduced-motion accessibility preference from the browser.
 function shouldReduceMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
+// Fills a cloned card with the selected show's text, image, click behavior,
+// keyboard behavior, and favorite button state.
 function editCardContent(card, show) {
   card.style.display = "block";
   card.setAttribute("role", "button");
@@ -426,19 +448,23 @@ function editCardContent(card, show) {
   cardBullets[2].textContent = "Setting: " + show.setting;
 }
 
-// Page setup
+// Runs once when the page first loads so the catalog, sort label,
+// and favorites modal all start with the correct content.
 document.addEventListener("DOMContentLoaded", function () {
   showCards();
   updateSortButton();
   renderFavorites();
 });
 
-// Theme toggle
+// Toggles the `dark` class on the body, which lets the CSS switch themes.
 function toggleTheme() {
   document.body.classList.toggle("dark");
 }
 
-// Sorting logic
+// Sorts the currently visible `shows` array by rating.
+// If `sortDescending` is true, the highest-rated shows appear first.
+// If it is false, the lowest-rated shows appear first.
+// After sorting, the direction flips so the next click reverses the order.
 function sortByRating() {
   shows.sort(function (a, b) {
     if (sortDescending) {
@@ -453,7 +479,11 @@ function sortByRating() {
   showCards();
 }
 
-// Search and filter logic
+// Rebuilds the visible `shows` array from the full `allShows` dataset.
+// For each show, it checks:
+// 1. whether the genre matches the selected dropdown value, and
+// 2. whether the title includes the current search text.
+// Only shows that pass both checks stay visible, then the catalog is redrawn.
 function applyFilters() {
   const genreSelect = document.getElementById("genre-select");
   const selectedGenre = genreSelect.value;
@@ -471,15 +501,17 @@ function applyFilters() {
   showCards();
 }
 
+// Lets the genre dropdown use the same shared filtering logic as the search field.
 function filterByGenre() {
   applyFilters();
 }
 
+// Formats numeric ratings so values like 9 display as 9.0 in the UI.
 function formatRating(rating) {
   return rating.toFixed(1);
 }
 
-// Sort button label
+// Updates the sort button text so the label matches the current rating direction.
 function updateSortButton() {
   const sortButton = document.getElementById("sort-button");
 
@@ -490,7 +522,8 @@ function updateSortButton() {
   }
 }
 
-// Show details modal
+// Opens the show details modal and copies the selected show's content into it.
+// This keeps the modal reusable instead of needing separate HTML for every show.
 function openModal(show) {
   const modal = document.getElementById("show-modal");
   const modalTitle = document.getElementById("modal-title");
@@ -512,6 +545,7 @@ function openModal(show) {
   document.body.classList.add("modal-open");
 }
 
+// Closes the main show details modal when the overlay or close button is clicked.
 function closeModal(event) {
   const modal = document.getElementById("show-modal");
 
@@ -524,7 +558,9 @@ function closeModal(event) {
   }
 }
 
-// Favorites state updates
+// Adds a show to favorites if it is not saved yet, or removes it if it is.
+// After the list changes, both the main catalog and favorites modal are rerendered
+// so every heart button and saved card stays visually in sync.
 function toggleFavorite(showId) {
   if (favoriteIds.includes(showId)) {
     favoriteIds = favoriteIds.filter(function (id) {
@@ -538,11 +574,13 @@ function toggleFavorite(showId) {
   renderFavorites(false);
 }
 
+// Checks whether a given show ID is currently saved in the favorites list.
 function isFavorite(showId) {
   return favoriteIds.includes(showId);
 }
 
-// Favorite button display
+// Updates the favorite heart button so its icon, class, and aria-label all match
+// the show's current saved state.
 function updateFavoriteButton(button, showId) {
   if (isFavorite(showId)) {
     button.textContent = "♥";
@@ -555,7 +593,7 @@ function updateFavoriteButton(button, showId) {
   }
 }
 
-// Favorites modal
+// Opens the favorites modal and refreshes its contents before showing it.
 function openFavoritesModal() {
   const favoritesModal = document.getElementById("favorites-modal");
   renderFavorites();
@@ -563,6 +601,7 @@ function openFavoritesModal() {
   document.body.classList.add("modal-open");
 }
 
+// Closes the favorites modal when the overlay or close button is clicked.
 function closeFavoritesModal(event) {
   const favoritesModal = document.getElementById("favorites-modal");
 
@@ -575,7 +614,8 @@ function closeFavoritesModal(event) {
   }
 }
 
-// Favorites card rendering
+// Rebuilds the favorites grid by filtering `allShows` down to only the shows
+// whose IDs appear in `favoriteIds`. If none are saved, it shows the empty state.
 function renderFavorites(animate) {
   const favoritesContainer = document.getElementById("favorites-container");
   const emptyState = document.getElementById("favorites-empty");
